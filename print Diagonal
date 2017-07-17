@@ -1,0 +1,31 @@
+public class Solution {
+	public ArrayList<ArrayList<Integer>> diagonal(ArrayList<ArrayList<Integer>> a) {
+	    
+	    ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+	    int N = a.size();
+	    
+	    for(int c=0;c<N;c++){
+	        ArrayList<Integer > t =  new ArrayList();
+	        int col=c;
+	        for(int r=0;r<c+1;r++){
+	           int val  = a.get(r).get(col--);
+	           t.add(val);
+	        }
+	        res.add(t);
+	    }
+	    
+	    
+	    for(int c=1;c<N;c++){
+	        ArrayList<Integer> t = new ArrayList();
+	        int col = N-1;
+	        for(int r =c;r< N;r++){
+	            int val  = a.get(r).get(col--);
+	            t.add(val);
+	        }
+	        
+	        res.add(t);
+	    }
+	    
+	    return res;
+	}
+}
