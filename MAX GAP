@@ -1,0 +1,51 @@
+public class Solution {
+	// DO NOT MODIFY THE LIST
+	public int maximumGap(final List<Integer> a) {
+	    
+	    if(a.size()<2) return 0;
+	    int n = a.size();
+	    int max = Integer.MIN_VALUE;
+	    int min = Integer.MAX_VALUE;
+	    
+	    for(int i=0;i<a.size();i++){
+	        max = Math.max(max, a.get(i));
+	        min = Math.min(min,a.get(i));
+	        
+	    }
+	    
+	    int bs  = Math.max(1,(max-min)/(n-1));
+	    int bn = (max-min)/bs+1;
+	    
+	    int[][]buckets = new int[bn][3];
+	    
+	    for(int i=0;i<bn;i++){
+	        buckets[i][0]=Integer.MAX_VALUE;
+	        buckets[i][1]=Integer.MIN_VALUE;
+	        buckets[i][2]=-1;
+	    }
+	    
+	    for(int i=0;i<a.size();i++){
+	        int idx = (a.get(i)-min)/bs;
+	        
+	        buckets[idx][0] = Math.min(buckets[idx][0],a.get(i));
+	        buckets[idx][1] = Math.max(buckets[idx][1],a.get(i));
+	        buckets[idx][2] = 1;
+	    }
+	    
+	    int maxgap=0;
+	    
+	    for(int i=0;i<bn;i++){
+	        if(buckets[i][2]<0){
+	            continue;
+	        }
+	         maxgap = Math.max(maxgap, buckets[i][0] - min);
+             min = buckets[i][1];
+	    }
+	    
+	    
+	    return maxgap;
+	    
+	}
+	
+	
+}
