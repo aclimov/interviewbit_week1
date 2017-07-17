@@ -1,0 +1,41 @@
+Given a positive integer n and a string s consisting only of letters D or I, you have to find any permutation of first n positive integer that satisfy the given input string.
+
+D means the next number is smaller, while I means the next number is greater.
+
+Notes
+- Length of given string s will always equal to n - 1
+- Your solution should run in linear time and space.
+
+Example :
+
+Input 1:
+
+n = 3
+
+s = ID
+
+Return: [1, 3, 2]
+  
+  
+  
+  public ArrayList<Integer> findPerm(final String A, int B) {
+        
+        int min=1;
+        int max=B;
+        ArrayList<Integer> res = new ArrayList(Collections.nCopies(B,0));
+        for(int i=0;i<A.length();i++){
+            if(A.charAt(i)=='I'){
+                res.set(i,min);
+                res.set(i+1,max);
+                min++;
+            }else{
+                res.set(i,max);
+                res.set(i+1,min);
+                
+                max--;
+            }
+        }
+        
+        
+        return res;
+    }
