@@ -1,0 +1,51 @@
+public class Solution {
+	public ArrayList<Integer> maxset(ArrayList<Integer> a) {
+	    ArrayList<Integer> res = new ArrayList();
+	    if(a.size()<1){return res;}
+	    /*
+	    
+	    define global L R;
+	    define tempR;
+	    define csum, gsum
+	    */
+	    
+	    int L=-1;
+	    int R=-1;
+	    long csum=0;
+	    long gsum=0;
+	    int l = 0;
+	    int r = 0;
+	    for(int i=0;i<a.size();i++){
+	       if(a.get(i)<0)
+	       {
+	           //compare current
+	           if(csum>gsum||((csum==gsum) &&(R-L)<(r-l))){
+	               L=l;
+	               R=r;
+	               gsum = csum;
+	           }
+	           //start new
+	           csum=0;
+	           l=i+1;
+	       } 
+	        else
+	       {
+	           csum+=a.get(i);
+	           r = i;
+	       }
+	    }
+	    
+	    if(csum>gsum||((csum==gsum) &&(R-L)<(r-l))){
+	               L=l;
+	               R=r;
+	               gsum = csum;
+	           }
+	    if(R>-1){
+	   
+	    return new ArrayList(a.subList(L,R+1));
+	    }else{
+	        return res;
+	    }
+	    
+	}
+}
