@@ -1,0 +1,43 @@
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+public class Solution {
+   public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
+        ArrayList<Interval> ans = new ArrayList<Interval>();
+        Interval inter = new Interval();
+        inter.start = newInterval.start;
+        inter.end = newInterval.end;
+        int added = 0;
+        for(int i = 0;i<intervals.size();i++){
+            if(intervals.get(i).end<newInterval.start){
+                ans.add(intervals.get(i));
+                continue;
+            }
+            
+            if(intervals.get(i).start>newInterval.end){
+                if(added==0){
+                    ans.add(inter);
+                    added=1;
+                }
+                ans.add(intervals.get(i));
+                
+                continue;
+            }
+            
+            inter.start= Math.min(inter.start,intervals.get(i).start);
+            inter.end = Math.max(inter.end,intervals.get(i).end);
+            
+            
+        }
+        if(added==0){ans.add(inter);}
+        
+        return ans;
+
+    }
+}
