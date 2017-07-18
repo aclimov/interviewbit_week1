@@ -1,0 +1,40 @@
+public class Solution {
+	public int firstMissingPositive(ArrayList<Integer> a) {
+	    
+	    //first iterate and move  negative , 0 and more thatn N+1 to the beginning
+	    
+	    int N = a.size();
+	    int j=0;
+	    while(j<a.size()&&(a.get(j)<1||a.get(j)>N)){
+	        a.set(j,1);
+	        j++;
+	    }
+	    
+	    if(j==a.size()) return 1;
+	    
+	     for(int i=j+1;i<a.size();i++){
+	         
+	         if(a.get(i)<1||a.get(i)>N){
+	             
+	             Collections.swap(a,i,j);
+	             a.set(j,1);
+	             j++;
+	         }
+	     }
+	     
+	     for(int i=j;i<a.size();i++){
+	         int idx = Math.abs(a.get(i))-1;
+	         if(a.get(idx)>0){
+	             a.set(idx,a.get(idx)*-1);
+	         }
+	     }
+	     
+	     for(int i=0;i<a.size();i++){
+	         if(a.get(i)>0){
+	             return i+1;
+	         }
+	     }
+	     
+	     return N+1;
+	}
+}
