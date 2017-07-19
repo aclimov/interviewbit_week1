@@ -1,0 +1,90 @@
+public class Solution {
+	public ArrayList<String> fullJustify(ArrayList<String> a, int b) {
+	    ArrayList<Row> text = new ArrayList<Row>();
+	    ArrayList <String> row = new ArrayList<String>();
+	    int len=0;
+	    for(int i=0;i<a.size();i++){
+	        if(len+a.get(i).length()>b){
+	            Row r = new Row();
+	            r.w = new ArrayList(row);
+	            r.len = len;
+	            text.add(r);
+	            row = new ArrayList();
+	            len = 0;
+	        }
+	        len+=a.get(i).length();
+	        len+=1;
+	        row.add(a.get(i));
+	    }
+	    
+	    if(len>0){
+	            Row r = new Row();
+	            r.w = new ArrayList(row);
+	            r.len = len;
+	            text.add(r);
+	            
+	    }
+	    
+	    if(text.size()==0) return new ArrayList();
+	    StringBuilder sb =new StringBuilder();
+	    ArrayList<String> ans = new ArrayList<String>();
+	    
+	    for(int i=0;i<text.size()-1;i++){
+	        Row r = text.get(i);
+	        
+	        if(r.w.size()==1){
+	            sb.append(r.w.get(0));
+	            int j=r.len;
+	            while(j<b){
+	                sb.append(" ");
+	                j++;
+	            }
+	        }else{
+	        
+	        int additionalSpaces = (b-r.len)/r.w.size()-1; 
+	        int shortSpaces = (b-r.len)%r.w.size()-1;
+	        for(int j=0;j<r.w.size()-1;j++){
+	            sb.append(r.w.get(j));
+	            sb.append(" ");
+	            int w=0;
+	            while(w<additionalSpaces){
+	                    sb.append(" ");
+	                    w++;
+	                }
+	            
+	            if(shortSpaces>=0){
+	                    sb.append(" ");
+	                    shortSpaces--;
+	            }
+	        }
+	            
+	        sb.append(r.w.get(r.w.size()-1));
+	        }
+	        
+	        ans.add(sb.toString());
+	        sb.setLength(0);
+	        
+	    }
+	    sb = new StringBuilder();
+	    Row last = text.get(text.size()-1);
+	    for(int i=0;i<last.w.size();i++){
+	        if(sb.length()>0){
+	            sb.append(" ");
+	        }
+	        sb.append(last.w.get(i));
+	    }
+	    
+	    while(sb.length()<b){
+            sb.append(" ");
+
+        }
+	    
+	    ans.add(sb.toString());
+	    return ans;
+	}
+	
+	class Row{
+	    public ArrayList<String>w = new ArrayList();
+	    public int len;
+	}
+}
