@@ -1,0 +1,74 @@
+public class Solution {
+	public int compareVersion(String a, String b) {
+	    
+	    //remove leading 0
+	    int z=0;
+	    while(z<a.length()&&a.charAt(z)=='0'){
+	        z++;
+	    }
+	    String[] aa = a.substring(z).split("\\.");
+	    z=0;
+	    while(z<b.length()&&b.charAt(z)=='0'){
+	        z++;
+	    }
+	    String[] bb = b.substring(z).split("\\.");
+	    
+	    int minlen = Math.min(aa.length,bb.length);
+	    int i=0;
+	    while(i<minlen){
+	        
+	        int v =compareS(aa[i],bb[i]);
+	        if(v>0){
+	            return 1;
+	        }
+	        
+	        if(v<0){
+	            return -1;
+	        }
+	        
+	        i++;
+	    }
+	    
+	    while(i<aa.length){
+	        int val  = compareS(aa[i],"0");
+	        if(val!=0){
+	            return 1;
+	        }
+	        i++;
+	    }
+	    
+	    while(i<bb.length){
+	        int val  = compareS(bb[i],"0");
+	        if(val!=0){
+	            return -1;
+	        }
+	        i++;
+	    }
+	    
+	    return 0;
+	}
+	
+	public int compareS(String x1, String x2){
+	    
+	    int z1=0;
+	    while(z1<x1.length()&&x1.charAt(z1)=='0'){
+	        z1++;
+	    }
+	    int z2 = 0;
+	    while(z2<x2.length()&&x2.charAt(z2)=='0'){
+	        z2++;
+	    }
+	    
+	    if(z1==x1.length()&&z2==x2.length()){
+	        return 0;
+	    }
+	    else if((x1.length()-z1)!=(x2.length()-z2)){
+	        
+	        return (x1.length()-z1)-(x2.length()-z2);
+	    }else{
+	        String s1 = x1+x2;
+	        String s2 = x2+x1;
+	        return x1.compareTo(x2);
+	    }
+	}
+}
